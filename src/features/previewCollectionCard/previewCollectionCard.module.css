@@ -1,0 +1,16 @@
+.root {
+    background-color: #eee;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'mainImg mainImg mainImg' 'img-1 img-2 img-3';
+    width: 400px;
+}
+.mainImg {
+    grid-area: mainImg;
+    width: 400px;
+    height: 400px;
+}
+.img {
+    width: 128px;
+    height: 128px;
+}

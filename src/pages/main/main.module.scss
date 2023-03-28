@@ -1,0 +1,9 @@
+.root {
+    display: grid;
+    place-content: center;
+    gap: 1ch;
+    margin: 0 15px;
+}
+.content {
+    max-width: 1600px;
+}
