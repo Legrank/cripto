@@ -3,7 +3,7 @@ import Routing from '../pages'
 
 function App() {
     return (
-        <div className="App">
+        <div className="App wrapper">
             <Routing />
         </div>
     )
