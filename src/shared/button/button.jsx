@@ -8,6 +8,7 @@ function Button({ size = 'small', children, border = true, className }) {
         <button
             className={cn(
                 styles[size],
+                styles.root,
                 {
                     [styles.border]: border,
                 },

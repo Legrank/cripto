@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 * {
     padding: 0px;
     margin: 0px;
-    border: 0px;
 }
 *,
 *:before,
@@ -21,6 +23,7 @@ body {
     line-height: 1;
     font-family: 'Inter';
     font-size: 20px;
+    color: #202025;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;

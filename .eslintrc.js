@@ -41,5 +41,9 @@ module.exports = {
                 allowTemplateLiterals: true,
             },
         ],
+        'no-unused-vars': [
+            'warn',
+            { vars: 'all', args: 'after-used', ignoreRestSiblings: false },
+        ],
     },
 }

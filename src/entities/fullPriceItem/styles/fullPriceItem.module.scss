@@ -1,0 +1,12 @@
+@import '../../../variables';
+.label {
+    @include second-text;
+    margin-bottom: 5px;
+}
+.text {
+    font-size: 24px;
+}
+.textContainer {
+    display: flex;
+    gap: 12px;
+}

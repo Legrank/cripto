@@ -1,6 +1,41 @@
-.wraper {
-    min-height: 100%;
+@import '../../variables';
+.h1 {
+    font-weight: 800;
+    font-size: 104px;
+    flex: 1 1;
+}
+.h2 {
+    font-weight: 800;
+    font-size: 80px;
+}
+.heading {
+    display: flex;
+    padding: 47px 40px 47px 80px;
+}
+.arrow {
+    margin-top: 18px;
+}
+.searchText {
+    color: $second-color;
+    margin-left: 32px;
+}
+.search {
+    padding-top: 85px;
+    padding-bottom: 52px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.bgimg {
+    background-image: url('../../shared/img/bg/banka.jpg');
+    width: 800px;
+    height: 800px;
+}
+.creatorNetwork {
+    background: #dbff73;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

@@ -1,0 +1,1 @@
+export { FullPriceView } from './fullPriceView'

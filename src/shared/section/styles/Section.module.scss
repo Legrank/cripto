@@ -1,0 +1,7 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+}
+.root > * {
+    flex: 1 0 50%;
+}

@@ -1,0 +1,8 @@
+$second-color: #686a6c;
+@mixin second-text {
+    font: {
+        size: 16px;
+        weight: 700;
+    }
+    color: $second-color;
+}

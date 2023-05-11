@@ -9,7 +9,7 @@ function PreviewCollectionCard({ mainImgUrl, imgsUrl }) {
         <div className={style.root}>
             <ImgCard imgUrl={mainImgUrl} className={style.mainImg} />
 
-            {imgsUrl.map((imgUrl, i) => (
+            {imgsUrl.map((imgUrl) => (
                 <ImgCard key={imgUrl} imgUrl={imgUrl} className={style.img} />
             ))}
         </div>
