@@ -1,5 +1,5 @@
 import React from 'react'
-import Routing from './Routing'
+import Routing from './routing'
 import Header from '../widgets/header'
 
 function App() {

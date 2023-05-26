@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import style from './card.module.css'
+import style from './styles/card.module.css'
 
 function ImgCard({ imgUrl, className }) {
     return (

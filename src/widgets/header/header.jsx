@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../shared/button/button'
+import { Button } from '../../shared/ui'
 import styles from './styles/header.module.scss'
 
 function Header() {

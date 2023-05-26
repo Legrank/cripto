@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles/smallArrowButton.module.scss'
-import { SmallArrow } from './index'
+import { SmallArrow } from '../index'
 
 function SmallArrowButton() {
     return (

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './previewCollectionCard.module.css'
-import ImgCard from '../../shared/card/imgCard'
+import { ImgCard } from '../../shared/ui'
 
 function PreviewCollectionCard({ mainImgUrl, imgsUrl }) {
     return (

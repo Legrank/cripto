@@ -3,12 +3,15 @@ import cn from 'classnames'
 
 import PreviewCollectionCard from '../../features/previewCollectionCard/previewCollectionCard'
 import styles from './main.module.scss'
-import Section from '../../shared/section'
-import Button from '../../shared/button'
-import ArrowButton from '../../shared/arrowButton'
-import Circle from '../../shared/circle'
 import { FullPriceView } from '../../widgets/fullPriceView'
-import { SmallArrow, SmallArrowButton } from '../../shared/ui'
+import {
+    SmallArrow,
+    SmallArrowButton,
+    ArrowButton,
+    Circle,
+    Section,
+    Button,
+} from '../../shared/ui'
 import { UserPreviewCard } from '../../widgets/userPreviewCard'
 import { Plank } from '../../features/plank'
 

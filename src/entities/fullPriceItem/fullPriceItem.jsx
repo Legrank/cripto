@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles/fullPriceItem.module.scss'
-import Circle from '../../shared/circle'
+import { Circle } from '../../shared/ui'
 
 function FullPriceItem({ label, text }) {
     return (
