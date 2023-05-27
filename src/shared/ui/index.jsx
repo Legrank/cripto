@@ -5,7 +5,9 @@ import Circle from './circle'
 import Button from './button'
 import ImgCard from './imgCard'
 import Section from './Section'
+import FormComponent from './form/form'
 
+export * from './form/fields'
 export {
     SmallArrow,
     SmallArrowButton,
@@ -14,4 +16,5 @@ export {
     Button,
     ImgCard,
     Section,
+    FormComponent,
 }
