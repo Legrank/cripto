@@ -31,7 +31,7 @@ module.exports = {
             {
                 anonymous: 'always',
                 named: 'never',
-                asyncArrow: 'never',
+                asyncArrow: 'always',
             },
         ],
         quotes: [

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../../shared/ui'
+import { NavLink } from 'react-router-dom'
 import styles from './styles/header.module.scss'
 
 function Header() {
@@ -11,7 +12,10 @@ function Header() {
             <nav className={styles.nav}>
                 <Button border={false}>DISCOVER</Button>
                 <Button border={false}>FEED</Button>
-                <Button>CONNECT WALLET</Button>
+
+                <NavLink to={'/sungup'}>
+                    <Button> CONNECT WALLET </Button>
+                </NavLink>
             </nav>
         </div>
     )

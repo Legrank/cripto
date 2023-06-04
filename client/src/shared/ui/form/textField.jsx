@@ -8,6 +8,7 @@ function TextField({
     type = 'text',
     error,
     onChange,
+    className,
     ...rest
 }) {
     const handleChange = ({ target }) => {
@@ -15,10 +16,15 @@ function TextField({
     }
     const toggleShowPassword = () => setShowPassword((prev) => !prev)
     const [showPassword, setShowPassword] = useState(false)
-    const getInputClasses = () => 'form-control' + (error ? ' is-invalid' : '')
+    const getInputClasses = () =>
+        'block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' +
+        (error ? ' is-invalid' : '')
     return (
-        <div className="md-4">
-            <label htmlFor={name} className="form-label">
+        <div className={className}>
+            <label
+                htmlFor={name}
+                className="block text-sm font-medium leading-6 text-gray-900"
+            >
                 {label}
             </label>
             <div className="input-group">
@@ -57,6 +63,7 @@ TextField.propTypes = {
     type: PropTypes.string,
     error: PropTypes.string,
     onChange: PropTypes.func,
+    className: PropTypes.string,
 }
 
 export default React.memo(TextField)

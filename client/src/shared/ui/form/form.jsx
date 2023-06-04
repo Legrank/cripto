@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import { validator } from '../../../utils/validator'
+import { validator } from '../../lib/validator'
 
 function FormComponent({
     children,
