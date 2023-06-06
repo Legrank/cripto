@@ -1,26 +1,27 @@
-import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import * as localstorageService from '../../../shared/lib/localstorage.service'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { setTokens } from '../../../shared/lib/localstorage.service'
 import { authService } from '../api/auth.service'
 
 export const signUp = createAsyncThunk(
     'auth/signup',
-    async (data, thunkAPI) => {
+    async (payload, thunkAPI) => {
         try {
-            const response = await authService.signUp(data)
-            return response.data
+            const { data } = await authService.signUp(payload)
+            return data
         } catch (error) {
-            return thunkAPI.rejectWithValue()
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
         }
     }
 )
 export const login = createAsyncThunk(
     'auth/login',
-    async ({ username, password }, thunkAPI) => {
+    async (payload, thunkAPI) => {
         try {
-            const response = await authService.login(username, password)
-            return response.data
+            const { data } = await authService.login(payload)
+            setTokens(data)
+            return data
         } catch (error) {
-            return thunkAPI.rejectWithValue()
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
         }
     }
 )
@@ -29,27 +30,34 @@ export const logOut = createAsyncThunk('auth/logout', async () => {
 })
 
 const initialState = {
-    userID: null,
-    error: null,
+    accessToken: null,
+    exporesIn: null,
+    refreshToken: null,
+    userId: null,
 }
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {
-        authRequestedSuccess: (state, action) => {
-            state.userID = action.payload
+    extraReducers: {
+        [signUp.fulfilled]: (state, action) => {
+            return { ...state, ...action.payload }
         },
-        authRequestedFiled: (state, action) => {
-            state.error = action.payload
+        [signUp.rejected]: (state) => {},
+        [login.fulfilled]: (state, action) => {
+            return { ...state, ...action.payload }
         },
-        loggedOut: (state) => {
-            state.userID = null
+        [login.rejected]: (state) => {},
+        [logOut.fulfilled]: (state) => {
+            state.accessToken = null
+            state.exporesIn = null
+            state.refreshToken = null
+            state.userId = null
         },
     },
 })
 
 const { reducer: authReducer } = authSlice
 
-const authRequested = createAction('auth/authRequested')
+export const getIsLogIn = () => (state) => state.users.isLoggedIn
 
 export default authReducer

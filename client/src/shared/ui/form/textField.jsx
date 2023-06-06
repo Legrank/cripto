@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
 function TextField({
     value = '',
@@ -18,7 +19,7 @@ function TextField({
     const [showPassword, setShowPassword] = useState(false)
     const getInputClasses = () =>
         'block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' +
-        (error ? ' is-invalid' : '')
+        (error ? ' border-red-700' : '')
     return (
         <div className={className}>
             <label
@@ -27,7 +28,7 @@ function TextField({
             >
                 {label}
             </label>
-            <div className="input-group">
+            <div className="">
                 <input
                     type={showPassword ? 'text' : type}
                     className={getInputClasses()}
@@ -39,7 +40,7 @@ function TextField({
                 />
                 {type === 'password' && (
                     <button
-                        className="btn btn-outline-secondary"
+                        className=""
                         type="button"
                         onClick={toggleShowPassword}
                     >
@@ -50,7 +51,13 @@ function TextField({
                         ></i>
                     </button>
                 )}
-                {error && <div className="invalid-feedback">{error}</div>}
+                <div
+                    className={cn('text-red-700 text-sm min-h-[40px]', {
+                        invisible: !error,
+                    })}
+                >
+                    {error}
+                </div>
             </div>
         </div>
     )

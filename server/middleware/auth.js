@@ -1,6 +1,8 @@
 const tokenService = require('../services/token.service')
 
 module.exports = (req, res, next) => {
+  console.log('worck')
+
   if (req.method === 'OPTION') {
     return next()
   }

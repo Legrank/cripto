@@ -4,6 +4,41 @@ import { useDispatch } from 'react-redux'
 import { Button, FormComponent, TextField } from '../../../shared/ui'
 import { signUp } from '../../../entities/auth/model/authSlice'
 
+const validatorConfig = {
+    email: {
+        isRequired: {
+            message: 'Электронная почта обязательна для заполнения',
+        },
+        isEmail: {
+            message: 'Email введен некорректно',
+        },
+    },
+    name: {
+        isRequired: {
+            message: 'Имя обязательно для заполнения',
+        },
+        min: {
+            message: 'Имя должено состоять минимум из 3 символов',
+            value: 3,
+        },
+    },
+    password: {
+        isRequired: {
+            message: 'Пароль обязателен для заполнения',
+        },
+        isCapitalSymbol: {
+            message: 'Пароль должен содержать хотя бы одну заглавную букву',
+        },
+        isContainDigit: {
+            message: 'Пароль должен содержать хотя бы одно число',
+        },
+        min: {
+            message: 'Пароль должен состоять минимум из 8 символов',
+            value: 8,
+        },
+    },
+}
+
 export function SungUp() {
     const dispatch = useDispatch()
     const handeleSubmit = async (data) => {
@@ -12,7 +47,7 @@ export function SungUp() {
     }
     return (
         <FormComponent
-            validatorConfig={{}}
+            validatorConfig={validatorConfig}
             onSubmit={handeleSubmit}
             className="px-20 h-full pt-32 flex flex-col justify-center"
         >
@@ -25,7 +60,7 @@ export function SungUp() {
             />
             <Button className="w-80">Зарегестрироватся</Button>
             <p>
-                или <Link to={'/sungup'}> войдите</Link>
+                или <Link to={'/login'}> войдите</Link>
             </p>
         </FormComponent>
     )

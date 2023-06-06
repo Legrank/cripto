@@ -5,6 +5,7 @@ import CheckBoxField from './checkBoxField'
 import RadioField from './radioField'
 import Search from './search'
 import TextareaField from './textareaField'
+import UploadImg from './uploadImg'
 
 export {
     TextField,
@@ -14,4 +15,5 @@ export {
     CheckBoxField,
     Search,
     TextareaField,
+    UploadImg,
 }

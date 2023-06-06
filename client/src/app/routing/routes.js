@@ -5,6 +5,7 @@ import { Login } from '../../pages/auth/login'
 import { SungUp } from '../../pages/auth/sungup'
 import { AuthLayout } from '../../widgets'
 import App from '../App'
+import AddItem from '../../pages/collection/addItem'
 
 export const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Main />,
+            },
+            {
+                path: '/collection',
+                element: <AddItem />,
             },
             {
                 element: <AuthLayout />,

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import styles from './styles/button.module.scss'
 
-function Button({ size = 'small', children, border = true, className }) {
+function Button({
+    size = 'small',
+    children,
+    border = true,
+    className,
+    ...rest
+}) {
     return (
         <button
             className={cn(
@@ -14,6 +20,7 @@ function Button({ size = 'small', children, border = true, className }) {
                 },
                 className
             )}
+            {...rest}
         >
             {children}
         </button>
