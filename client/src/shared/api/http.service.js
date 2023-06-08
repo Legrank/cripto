@@ -8,14 +8,17 @@ import {
 
 const baseURL = 'http://localhost:8080'
 const httpService = axios.create({ baseURL })
+const httpServiceWithAuth = axios.create({ baseURL })
 
 // request
-httpService.interceptors.request.use(
+httpServiceWithAuth.interceptors.request.use(
     async function (config) {
         const expiresDate = getTokenExpiresDate()
         const refreshToken = getRefreshToken()
         if (refreshToken && expiresDate < Date.now()) {
             const { data } = await refresh(refreshToken)
+            // eslint-disable-next-line dot-notation
+            config.headers.Authorization = 'Bearer ' + data.accessToken
             setTokens(data)
         }
 
@@ -34,11 +37,11 @@ const refresh = async (refreshToken) => {
 }
 if (accessToken) {
     // eslint-disable-next-line dot-notation
-    httpService.defaults.headers.common['Authorization'] =
+    httpServiceWithAuth.defaults.headers.common['Authorization'] =
         'Bearer ' + accessToken
 }
 // response
-httpService.interceptors.response.use(
+httpServiceWithAuth.interceptors.response.use(
     (res) => {
         return res
     },
@@ -46,5 +49,5 @@ httpService.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-
+export { httpServiceWithAuth, httpService }
 export default httpService

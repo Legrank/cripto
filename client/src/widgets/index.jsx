@@ -1,4 +1,5 @@
 import AuthLayout from './layouts/authLayout'
 import Header from './header/header'
 import Footer from './footer/footer'
-export { AuthLayout, Footer, Header }
+import ProtectedLayout from './layouts/protectedLayout'
+export { AuthLayout, ProtectedLayout, Footer, Header }

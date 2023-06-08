@@ -1,0 +1,24 @@
+.menu {
+    position: relative;
+    padding-bottom: 10px;
+}
+.body {
+}
+.list {
+    width: 460px;
+    background: #010101;
+    padding: 80px 40px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translate(0px 10%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease 0s;
+    border-radius: 12px;
+}
+.listhover {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0px 0px);
+}

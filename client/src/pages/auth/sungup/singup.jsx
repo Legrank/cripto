@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button, FormComponent, TextField } from '../../../shared/ui'
 import { signUp } from '../../../entities/auth/model/authSlice'
@@ -39,11 +39,16 @@ const validatorConfig = {
     },
 }
 
-export function SungUp() {
+export function SingUp() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handeleSubmit = async (data) => {
-        const response = await dispatch(signUp(data)).unwrap()
-        console.log('response', response)
+        try {
+            await dispatch(signUp(data)).unwrap()
+            navigate('/', { replace: true })
+        } catch (error) {
+            console.log('response', error)
+        }
     }
     return (
         <FormComponent

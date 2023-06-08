@@ -1,12 +1,29 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { setTokens } from '../../../shared/lib/localstorage.service'
+import {
+    setTokens,
+    removeAuthData,
+    getAccessToken,
+    getRefreshToken,
+    getTokenExpiresDate,
+    getUserId,
+} from '../../../shared/lib/localstorage.service'
 import { authService } from '../api/auth.service'
+
+const defaultAvatarUrl = `https://avatars.dicebear.com/api/avataaars/${(
+    Math.random() + 1
+)
+    .toString(36)
+    .substring(7)}.svg`
 
 export const signUp = createAsyncThunk(
     'auth/signup',
     async (payload, thunkAPI) => {
         try {
-            const { data } = await authService.signUp(payload)
+            const { data } = await authService.signUp({
+                ...payload,
+                avatar: defaultAvatarUrl,
+            })
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error?.response?.data?.message)
@@ -26,14 +43,14 @@ export const login = createAsyncThunk(
     }
 )
 export const logOut = createAsyncThunk('auth/logout', async () => {
-    await authService.logout()
+    removeAuthData()
 })
 
 const initialState = {
-    accessToken: null,
-    exporesIn: null,
-    refreshToken: null,
-    userId: null,
+    accessToken: getAccessToken(),
+    exporesIn: getTokenExpiresDate(),
+    refreshToken: getRefreshToken(),
+    userId: getUserId(),
 }
 const authSlice = createSlice({
     name: 'auth',
@@ -58,6 +75,10 @@ const authSlice = createSlice({
 
 const { reducer: authReducer } = authSlice
 
-export const getIsLogIn = () => (state) => state.users.isLoggedIn
+export const isLoggedInSelector = () => (store) =>
+    Boolean(store.auth.accessToken)
+export const getUserIdSelector = () => (store) => {
+    return store.auth?.userId
+}
 
 export default authReducer

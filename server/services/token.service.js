@@ -9,7 +9,7 @@ class TokenService {
         expiresIn: '1h',
       }),
       refreshToken: jwt.sign(payload, config.get('refreshSecret')),
-      exporesIn: 3600,
+      expiresIn: 3600,
     }
   }
   async save(userId, refreshToken) {

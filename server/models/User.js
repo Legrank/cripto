@@ -14,6 +14,18 @@ const schema = new Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+      required: true,
+    },
+    totalsale: {
+      type: Number,
+      required: true,
+    },
+    balance: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 )

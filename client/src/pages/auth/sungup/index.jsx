@@ -1,1 +1,1 @@
-export { SungUp } from './sungup'
+export { SingUp } from './singup'

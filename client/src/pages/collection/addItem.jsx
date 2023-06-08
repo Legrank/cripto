@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './style.css'
 import { UploadImg } from '../../shared/ui'
 
 function AddItem() {

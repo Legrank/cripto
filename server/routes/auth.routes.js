@@ -5,6 +5,10 @@ const User = require('../models/User')
 const tokenService = require('../services/token.service')
 const router = express.Router({ mergeParams: true })
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max)
+}
+
 router.post('/singUp', async (req, res) => {
   try {
     const { email, password } = req.body
@@ -18,6 +22,8 @@ router.post('/singUp', async (req, res) => {
     const newUser = await User.create({
       ...req.body,
       password: hashedPassword,
+      totalsale: getRandomInt(2000),
+      balance: getRandomInt(1500),
     })
     const tokens = tokenService.generete({ _id: newUser._id })
     await tokenService.save(newUser._id, tokens.refreshToken)

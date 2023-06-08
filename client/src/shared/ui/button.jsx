@@ -13,6 +13,7 @@ function Button({
     return (
         <button
             className={cn(
+                'flex justify-center items-center font-extrabold',
                 styles[size],
                 styles.root,
                 {

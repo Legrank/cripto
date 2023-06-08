@@ -5,7 +5,7 @@ import { validator } from '../../lib/validator'
 
 function FormComponent({
     children,
-    validatorConfig,
+    validatorConfig = {},
     onSubmit,
     defaultData,
     resetForm,
@@ -20,9 +20,11 @@ function FormComponent({
     }, [])
     const handleSubmit = (e) => {
         e.preventDefault()
-        onSubmit(data)
-        if (resetForm) {
-            setData(defaultData || {})
+        if (validate()) {
+            onSubmit(data)
+            if (resetForm) {
+                setData(defaultData || {})
+            }
         }
     }
     const validate = () => {
@@ -77,7 +79,7 @@ FormComponent.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
-    validatorConfig: PropTypes.object.isRequired,
+    validatorConfig: PropTypes.object,
     onSubmit: PropTypes.func.isRequired,
     defaultData: PropTypes.object,
     resetForm: PropTypes.bool,
