@@ -108,7 +108,7 @@ function UploadImg({ label, name, error, onChange, value }) {
 }
 
 UploadImg.propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.any,
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     error: PropTypes.string,

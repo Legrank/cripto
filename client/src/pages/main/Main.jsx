@@ -1,7 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
 
-import PreviewCollectionCard from '../../features/previewCollectionCard/previewCollectionCard'
 import styles from './main.module.scss'
 import { FullPriceView } from '../../widgets/fullPriceView'
 import {
@@ -14,47 +13,13 @@ import {
 } from '../../shared/ui'
 import { Plank } from '../../features/plank'
 import { TotalSaleUserRaiting, UserPreviewCard } from '../../widgets'
-
-const mockImgUrl = ['/img/frame73.jpg', '/img/frame79.jpg', '/img/frame80.jpg']
-const mockMainImgUrl = '/img/frame73.jpg'
+import { PromoCollection } from '../../widgets/promoCollection'
 
 export default function Main() {
     return (
         <div>
             <Section>
-                <div className={styles.heading}>
-                    <h1 className={styles.h1}>Curated Artwork.</h1>
-                    <ArrowButton className={styles.arrow} />
-                </div>
-                <div className={styles.search}>
-                    <p className={styles.searchText}>
-                        We are laying the groundwork for web3 — the next
-                        generation of the internet full of limitless
-                        possibilities.
-                    </p>
-                    <Button border={false}>
-                        <p>{'start your search'.toUpperCase()}</p>
-                        <Circle />
-                    </Button>
-                </div>
-
-                <div className={styles.bgimg}></div>
-                <div className={styles.creatorNetwork}>
-                    <FullPriceView />
-                    <div>
-                        <h2 className={cn(styles.h2, 'mb-10')}>
-                            The creator network.
-                        </h2>
-                        <div className="flex gap-3">
-                            <Button>
-                                <p>VIEW NFT</p> <SmallArrow />
-                            </Button>
-                            <Button className="text-white bg-black border-black">
-                                PLICE A BID
-                            </Button>
-                        </div>
-                    </div>
-                </div>
+                <PromoCollection />
 
                 <div className="px-20 min-h-[1200px] pt-32 flex flex-col justify-between">
                     <div className="flex">

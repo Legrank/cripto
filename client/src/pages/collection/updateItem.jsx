@@ -23,7 +23,7 @@ function UpdateItem() {
         }
         try {
             await dispatch(nftUpdate(datatransfer)).unwrap()
-            navigate('../')
+            navigate(`../${nft.collection}`)
         } catch (e) {
             setError({
                 bgImg: 'При создании коллекции произошла ошибка. Попробуйте позже.',

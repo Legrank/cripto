@@ -38,8 +38,12 @@ router.post('/create', auth, async (req, res) => {
 })
 router.post('/update', auth, async (req, res) => {
   try {
-    const { name, description, price, collectionNft, id, owner } = req.body
+    const { name, description, price, collectionNft, id, owner, creator } =
+      req.body
     const userid = req.user._id
+    if (userid !== creator) {
+      return res.status(401).json({ message: 'Недостаточно прав' })
+    }
     const nft = await Nft.findByIdAndUpdate(
       id,
       {
@@ -70,6 +74,7 @@ router.post('/update', auth, async (req, res) => {
 })
 router.delete('/:id', auth, async (req, res) => {
   try {
+    const user = req.user?._id
     const { id } = req.params
     const nft = await Nft.findByIdAndDelete(id)
     const collection = await Collection.findById(nft.collectionNft)

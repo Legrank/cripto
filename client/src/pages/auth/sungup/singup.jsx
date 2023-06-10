@@ -66,6 +66,7 @@ export function SingUp() {
                 name={'password'}
                 label={'Пароль'}
                 className="w-80 mb-3"
+                type="password"
             />
             <Button className="w-80">Зарегестрироватся</Button>
             <p>

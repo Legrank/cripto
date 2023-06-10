@@ -66,6 +66,13 @@ const initialState = collectionAdapter.getInitialState()
 const collectionSlice = createSlice({
     name: 'collection',
     initialState,
+    reducers: {
+        nftAdded(state, action) {
+            state.entities[action.payload.collection].nft.push(
+                action.payload.id
+            )
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(collectionCreate.fulfilled, collectionAdapter.addOne)
@@ -75,7 +82,8 @@ const collectionSlice = createSlice({
     },
 })
 
-const { reducer: collectionReducer } = collectionSlice
+const { reducer: collectionReducer, actions } = collectionSlice
+export const { nftAdded } = actions
 
 export const {
     selectAll: selectAllCollection,

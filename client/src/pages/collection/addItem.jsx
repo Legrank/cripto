@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Button, FormComponent, TextField, UploadImg } from '../../shared/ui'
 import { nftCreate } from '../../entities/nft'
 import { useNavigate, useParams } from 'react-router-dom'
+import { nftAdded } from '../../entities/collection'
 
 function AddItem() {
     const navigate = useNavigate()
@@ -16,8 +17,9 @@ function AddItem() {
         }
         datatransfer.append('collectionNft', collection)
         try {
-            await dispatch(nftCreate(datatransfer)).unwrap()
-            navigate('../')
+            const nft = await dispatch(nftCreate(datatransfer)).unwrap()
+            dispatch(nftAdded({ id: nft.id, collection }))
+            navigate(`../${collection}`)
         } catch (e) {
             setError({
                 bgImg: 'При создании коллекции произошла ошибка. Попробуйте позже.',

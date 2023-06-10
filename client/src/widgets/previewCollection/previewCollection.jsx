@@ -8,6 +8,7 @@ import { useUser } from '../../entities/user'
 import config from '../../shared/lib/config.json'
 import { Button, SpinnerLoader } from '../../shared/ui'
 import { selectNftByIds } from '../../entities/nft/model/nftSlice'
+import { getUserIdSelector } from '../../entities/auth'
 
 function PreviewCollection({ collectionId }) {
     const collection = useSelector((state) =>
@@ -18,6 +19,7 @@ function PreviewCollection({ collectionId }) {
     )
     const owner = useUser(collection.owner)
     const creator = useUser(collection.creator)
+    const currrentUser = useSelector(getUserIdSelector())
     return (
         <div className="w-[448px] px-6 py-10">
             <div
@@ -39,9 +41,11 @@ function PreviewCollection({ collectionId }) {
                     <SpinnerLoader className="w-[400px]" />
                 )}
             </div>
-            <Link to={`/collections/${collection.id}`}>
-                <Button className="mt-4">Изменить коллекцию</Button>
-            </Link>
+            {currrentUser === creator.id && (
+                <Link to={`/collections/${collection.id}`}>
+                    <Button className="mt-4">Изменить коллекцию</Button>
+                </Link>
+            )}
         </div>
     )
 }

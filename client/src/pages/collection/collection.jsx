@@ -32,13 +32,15 @@ function Collection() {
                     <h4>Владелеть {owner?.name}</h4>
                 </div>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex  items-center flex-wrap justify-start">
                 {nfts.length ? (
                     nfts.map((nft) => (
                         <div className="w-1/3 px-4" key={nft.id}>
                             <ImgCard
                                 imgUrl={`${config.API_URL}/${nft.imgUrl}`}
                             />
+                            <p className="text-2xl">{nft.name}</p>
+                            <p className="text-2xl">{nft.price}</p>
                             <div className="flex justify-between px-4 pt-4">
                                 <Link to={`../update/${nft.id}`}>
                                     <Button>Изменить</Button>

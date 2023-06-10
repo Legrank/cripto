@@ -25,6 +25,7 @@ export function Login() {
             <TextField
                 name={'password'}
                 label={'пароль'}
+                type="password"
                 className="w-80 mb-3"
             />
             <Button className="w-80">Войти</Button>
