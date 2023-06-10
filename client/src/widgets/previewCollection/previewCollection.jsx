@@ -41,7 +41,7 @@ function PreviewCollection({ collectionId }) {
                     <SpinnerLoader className="w-[400px]" />
                 )}
             </div>
-            {currrentUser === creator.id && (
+            {currrentUser === creator?.id && (
                 <Link to={`/collections/${collection.id}`}>
                     <Button className="mt-4">Изменить коллекцию</Button>
                 </Link>

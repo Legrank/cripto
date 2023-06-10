@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const config = require('config')
 const chalk = require('chalk')
 const cors = require('cors')
+const path = require('path')
 const fileUpload = require('express-fileupload')
 const initDatabase = require('./startUp/initDatabase')
 const routes = require('./routes')
@@ -14,9 +15,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extends: false }))
 app.use(cors())
 app.use(fileUpload())
-app.use(express.static('public'))
+app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/api', routes)
-
+const indexPath = path.join(__dirname, 'public', 'index.html')
+app.get('*', (req, res) => {
+  res.sendFile(indexPath)
+})
 async function start() {
   try {
     mongoose.connection.once('open', () => {

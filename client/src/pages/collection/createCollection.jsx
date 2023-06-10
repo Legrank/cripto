@@ -2,17 +2,22 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, FormComponent, TextField, UploadImg } from '../../shared/ui'
 import { collectionCreate } from '../../entities/collection'
+import { useNavigate } from 'react-router-dom'
 
 function CreateCollection() {
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handleSubmit = async (data) => {
         const datatransfer = new FormData()
         for (const item in data) {
             datatransfer.append(item, data[item])
         }
         try {
-            await dispatch(collectionCreate(datatransfer)).unwrap()
+            const collection = await dispatch(
+                collectionCreate(datatransfer)
+            ).unwrap()
+            navigate(`../${collection.id}`)
         } catch (e) {
             setError({
                 bgImg: 'При создании коллекции произошла ошибка. Попробуйте позже.',

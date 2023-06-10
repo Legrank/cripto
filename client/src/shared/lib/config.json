@@ -1,3 +1,3 @@
 {
-    "API_URL": "https://api.cripter.online"
+    "API_URL": "http://localhost:8080"
 }

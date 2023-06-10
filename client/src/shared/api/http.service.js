@@ -31,12 +31,10 @@ httpServiceWithAuth.interceptors.request.use(
         const refreshToken = getRefreshToken()
         if (refreshToken && expiresDate < Date.now()) {
             const { data } = await refresh(refreshToken)
-            // eslint-disable-next-line dot-notation
-
-            config.headers.Authorization = 'Bearer ' + data.accessToken
             setTokens(data)
         }
-
+        const accessToken = getAccessToken()
+        config.headers.Authorization = 'Bearer ' + accessToken
         return config
     },
     function (error) {
@@ -49,11 +47,6 @@ const refresh = async (refreshToken) => {
         refreshToken,
     })
     return response
-}
-if (accessToken) {
-    // eslint-disable-next-line dot-notation
-    httpServiceWithAuth.defaults.headers.common['Authorization'] =
-        'Bearer ' + accessToken
 }
 // response
 httpServiceWithAuth.interceptors.response.use(

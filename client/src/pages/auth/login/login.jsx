@@ -11,6 +11,7 @@ export function Login() {
     const redirect = location.state
         ? location.state.referrer.pathname
         : '/profile'
+    console.log('location.state', location.state)
     const handleSubmit = async (data) => {
         await dispatch(login(data)).unwrap()
         navigate(redirect, { replace: true })
