@@ -11,7 +11,11 @@ router.post('/create', auth, async (req, res) => {
       return res.status(400).send('No files were uploaded.')
     }
     const { bgImg } = req.files
-    const collection = await Collection.create({ name })
+    const collection = await Collection.create({
+      name,
+      owner: userid,
+      creator: userid,
+    })
     const fileName = bgImg.name.split('.')
     const type = fileName[fileName.length - 1]
     const pathImg = 'img/' + userid + collection._id + '.' + type
@@ -26,27 +30,31 @@ router.post('/create', auth, async (req, res) => {
     res.status(500).json({ message: 'На сервере произошла ошибка' })
   }
 })
-router.post('/addcover', auth, async (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.')
-  }
-  req.files.file.mv(
-    __dirname + '/temp/img' + Math.random().toString().slice(2, 7) + '.png'
-  )
-
+router.get('/mycollection', auth, async (req, res) => {
   try {
-    res.json({ message: 'Работает' })
+    const userid = req.user._id
+    const collection = await Collection.find({ owner: userid })
+    res.json(collection.map((item) => new CollectionDTO(item)))
   } catch (e) {
     console.log(e)
     res.status(500).json({ message: 'На сервере произошла ошибка' })
   }
 })
-router.post('/:collectionID', auth, async (req, res) => {
+router.get('/collection', async (req, res) => {
+  try {
+    const { limit } = req.query
+    const collection = await Collection.find().limit(limit)
+    res.json(collection.map((item) => new CollectionDTO(item)))
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ message: 'На сервере произошла ошибка' })
+  }
+})
+router.get('/:collectionID', async (req, res) => {
   const { collectionID } = req.params
   try {
-    console.log(collectionID)
-
-    res.json({ message: 'work' })
+    const collection = await Collection.findById(collectionID)
+    res.json(new CollectionDTO(collection))
   } catch (e) {
     console.log(e)
     res.status(500).json({ message: 'На сервере произошла ошибка' })

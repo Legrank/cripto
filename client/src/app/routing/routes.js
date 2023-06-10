@@ -7,7 +7,13 @@ import { AuthLayout, ProtectedLayout } from '../../widgets'
 import App from '../App'
 import AddItem from '../../pages/collection/addItem'
 import { Profile } from '../../pages/profile'
-import { Collection, CreateCollection } from '../../pages/collection'
+import {
+    Collection,
+    Collections,
+    CreateCollection,
+    MyCollection,
+    UpdateItem,
+} from '../../pages/collection'
 
 export const router = createBrowserRouter([
     {
@@ -18,11 +24,22 @@ export const router = createBrowserRouter([
                 element: <Main />,
             },
             {
-                path: '/collection',
+                path: '/collections',
                 children: [
-                    { index: true, element: <Collection /> },
-                    { path: 'create', element: <CreateCollection /> },
-                    { path: 'addNFT', element: <AddItem /> },
+                    { index: true, element: <Collections /> },
+                    { path: ':collection', element: <Collection /> },
+                    {
+                        element: <ProtectedLayout />,
+                        children: [
+                            { path: 'create', element: <CreateCollection /> },
+                            {
+                                path: ':collection/addNFT',
+                                element: <AddItem />,
+                            },
+                            { path: 'my', element: <MyCollection /> },
+                            { path: 'update/:nftId', element: <UpdateItem /> },
+                        ],
+                    },
                 ],
             },
             {

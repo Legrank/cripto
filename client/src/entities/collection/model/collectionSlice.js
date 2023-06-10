@@ -3,29 +3,60 @@ import {
     createSlice,
     createAsyncThunk,
     createEntityAdapter,
+    createSelector,
 } from '@reduxjs/toolkit'
 import { collectionService } from '../api/collection.service'
+import { fetchNftByIds } from '../../nft/model/nftSlice'
 
 export const collectionCreate = createAsyncThunk(
     'collection/create',
     async (payload, thunkAPI) => {
         try {
             const { data } = await collectionService.createCollection(payload)
-            console.log('data', data)
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error?.response?.data?.message)
         }
-    },
-    {
-        condition: (_, { getState }) => {
-            const lastUpdate = getState().user?.lastUpdate
-            const time = Date.now()
-            if (time < lastUpdate + 5 * 60 * 1000) {
-                console.log(time < lastUpdate + 5 * 60 * 1000)
-                return false
-            }
-        },
+    }
+)
+export const fetchMyCollection = createAsyncThunk(
+    'collection/mycollection',
+    async (payload, thunkAPI) => {
+        try {
+            const { data } = await collectionService.getMyCollection()
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
+        }
+    }
+)
+export const fetchCollection = createAsyncThunk(
+    'collection/collection',
+    async (limit, thunkAPI) => {
+        try {
+            const { data } = await collectionService.getCollection(limit)
+            const nftIds = data.reduce((res, collection) => {
+                res = [...res, ...collection.nft]
+                return res
+            }, [])
+            thunkAPI.dispatch(fetchNftByIds(nftIds))
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
+        }
+    }
+)
+export const fetchCollectionById = createAsyncThunk(
+    'collection/byId',
+    async (id, thunkAPI) => {
+        try {
+            const { data } = await collectionService.getCollectionById(id)
+            thunkAPI.dispatch(fetchNftByIds(data.nft))
+            return data
+        } catch (error) {
+            console.log('error', error)
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
+        }
     }
 )
 
@@ -36,7 +67,11 @@ const collectionSlice = createSlice({
     name: 'collection',
     initialState,
     extraReducers(builder) {
-        builder.addCase(collectionCreate.fulfilled, collectionAdapter.addOne)
+        builder
+            .addCase(collectionCreate.fulfilled, collectionAdapter.addOne)
+            .addCase(fetchMyCollection.fulfilled, collectionAdapter.upsertMany)
+            .addCase(fetchCollection.fulfilled, collectionAdapter.upsertMany)
+            .addCase(fetchCollectionById.fulfilled, collectionAdapter.upsertOne)
     },
 })
 
@@ -47,5 +82,13 @@ export const {
     selectById: selectCollectionById,
     selectIds: selectCollectionIds,
 } = collectionAdapter.getSelectors((state) => state.collection)
+
+export const getMyCollection = createSelector(
+    [selectAllCollection, (state, userId) => userId],
+    (collection, userId) =>
+        collection
+            .filter((item) => item.owner === userId)
+            .map((item) => item.id)
+)
 
 export default collectionReducer

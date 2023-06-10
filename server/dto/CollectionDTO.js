@@ -4,5 +4,7 @@ module.exports = class CollectionDTO {
     this.nft = collection.nft
     this.name = collection.name
     this.bgImg = collection.bgImg
+    this.creator = collection.creator.toString()
+    this.owner = collection.owner.toString()
   }
 }

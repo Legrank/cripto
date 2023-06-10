@@ -1,9 +1,14 @@
 import React from 'react'
-const SpinnerLader = () => {
+import PropTypes from 'prop-types'
+import cn from 'classnames'
+const SpinnerLoader = ({ className }) => {
     return (
         <svg
             role="status"
-            className="inline w-10 h-10 mr-2 text-gray-200 animate-spin  fill-blue-600"
+            className={cn(
+                'inline text-gray-200 animate-spin fill-blue-600',
+                className
+            )}
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +25,8 @@ const SpinnerLader = () => {
     )
 }
 
-export default SpinnerLader
+SpinnerLoader.propTypes = {
+    className: PropTypes.string,
+}
+
+export default SpinnerLoader

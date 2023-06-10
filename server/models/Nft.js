@@ -4,7 +4,6 @@ const schema = new Schema(
   {
     imgUrl: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
@@ -15,7 +14,9 @@ const schema = new Schema(
     price: {
       type: Number,
     },
-    collection: { type: Schema.Types.ObjectId, ref: 'Collection' },
+    collectionNft: { type: Schema.Types.ObjectId, ref: 'Collection' },
+    creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   { timestamps: true }
 )

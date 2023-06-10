@@ -1,20 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button, FormComponent, TextField } from '../../../shared/ui'
 import { useDispatch } from 'react-redux'
 import { login } from '../../../entities/auth/model/authSlice'
 
-import httpService from '../../../shared/api/http.service'
-
 export function Login() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const redirect = location.state
+        ? location.state.referrer.pathname
+        : '/profile'
     const handleSubmit = async (data) => {
-        const response = await dispatch(login(data)).unwrap()
-        console.log('response', response)
-    }
-    const handleClick = async () => {
-        const data = await httpService.post('/api/collection', { test: 123 })
-        console.log('data', data)
+        await dispatch(login(data)).unwrap()
+        navigate(redirect, { replace: true })
     }
     return (
         <FormComponent
@@ -29,9 +28,6 @@ export function Login() {
                 className="w-80 mb-3"
             />
             <Button className="w-80">Войти</Button>
-            <Button className="w-80" type="button" onClick={handleClick}>
-                Приватный роут
-            </Button>
             <p>
                 или <Link to={'/sungup'}> зарегистрируйтесь</Link>
             </p>

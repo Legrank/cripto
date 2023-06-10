@@ -5,12 +5,26 @@ import {
     setTokens,
     getAccessToken,
 } from '../lib/localstorage.service'
+import config from '../lib/config.json'
 
-const baseURL = 'http://localhost:8080'
+const baseURL = config.API_URL
 const httpService = axios.create({ baseURL })
 const httpServiceWithAuth = axios.create({ baseURL })
 
 // request
+httpService.interceptors.request.use(
+    async function (config) {
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve()
+            }, 1000)
+        })
+        return config
+    },
+    function (error) {
+        return Promise.reject(error)
+    }
+)
 httpServiceWithAuth.interceptors.request.use(
     async function (config) {
         const expiresDate = getTokenExpiresDate()
@@ -18,6 +32,7 @@ httpServiceWithAuth.interceptors.request.use(
         if (refreshToken && expiresDate < Date.now()) {
             const { data } = await refresh(refreshToken)
             // eslint-disable-next-line dot-notation
+
             config.headers.Authorization = 'Bearer ' + data.accessToken
             setTokens(data)
         }

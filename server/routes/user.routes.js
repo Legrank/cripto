@@ -9,20 +9,6 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max)
 }
 
-router.get('/one/:userId', noAuthAddUser, async (req, res) => {
-  const userId = req.params.userId
-  try {
-    const user = await User.findById(userId)
-    const currentUserId = req.user._id
-    const userDTO = new UserDTO(user, currentUserId)
-    res.json(userDTO)
-  } catch (e) {
-    console.log(e)
-
-    res.status(500).json({ message: 'not work' })
-  }
-})
-
 router.get('/totalsale', noAuthAddUser, async (req, res) => {
   try {
     // await User.find()).forEach(async (user) => {
@@ -33,6 +19,19 @@ router.get('/totalsale', noAuthAddUser, async (req, res) => {
     const users = await User.find().sort({ totalsale: -1 }).limit(4)
     const currentUserId = req.user ? req.user._id : null
     const userDTO = users.map((user) => new UserDTO(user, currentUserId))
+    res.json(userDTO)
+  } catch (e) {
+    console.log(e)
+
+    res.status(500).json({ message: 'not work' })
+  }
+})
+router.get('/:userId', noAuthAddUser, async (req, res) => {
+  const userId = req.params.userId
+  try {
+    const user = await User.findById(userId)
+    const currentUserId = req.user?._id
+    const userDTO = new UserDTO(user, currentUserId)
     res.json(userDTO)
   } catch (e) {
     console.log(e)

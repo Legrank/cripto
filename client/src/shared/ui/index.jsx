@@ -7,7 +7,7 @@ import ImgCard from './imgCard'
 import Section from './Section'
 import FormComponent from './form/form'
 import CloseButton from './closeButton'
-import SpinnerLader from './SpinnerLoader'
+import SpinnerLoader from './SpinnerLoader'
 
 export * from './form/fields'
 export {
@@ -20,5 +20,5 @@ export {
     Section,
     FormComponent,
     CloseButton,
-    SpinnerLader,
+    SpinnerLoader,
 }

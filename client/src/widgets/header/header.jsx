@@ -7,6 +7,7 @@ import { isLoggedInSelector } from '../../entities/auth/model/authSlice'
 
 function Header() {
     const isLoggedIn = useSelector(isLoggedInSelector())
+
     return (
         <div className="flex justify-between my-12">
             <div className="">
@@ -15,12 +16,20 @@ function Header() {
                 </Link>
             </div>
             <nav className="flex">
-                <Button border={false} className="text-2xl">
-                    <NavLink to="/collection">КОЛЛЕКЦИИ</NavLink>
-                </Button>
-                <Button border={false} className="text-2xl">
-                    FEED
-                </Button>
+                <NavLink to="/collections" end>
+                    {({ isActive }) => (
+                        <Button border={isActive} className="text-2xl">
+                            КОЛЛЕКЦИИ
+                        </Button>
+                    )}
+                </NavLink>
+                <NavLink to="/collections/create" end>
+                    {({ isActive }) => (
+                        <Button border={isActive} className="text-2xl">
+                            СОЗДАТЬ
+                        </Button>
+                    )}
+                </NavLink>
 
                 {isLoggedIn ? (
                     <ProfileMenu />

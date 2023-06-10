@@ -1,18 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import config from '../../lib/config.json'
 
-function UploadImg({
-    value = '',
-    label,
-    name,
-    error,
-    onChange,
-    className,
-    ...rest
-}) {
+function UploadImg({ label, name, error, onChange, value }) {
+    const baseUrl = config.API_URL
+    const url = value && `${baseUrl}/${value}`
     const [dragActive, setDragActive] = useState(false)
-    const [imgUrl, setImgUrl] = useState(false)
+    const [imgUrl, setImgUrl] = useState(url)
     const imgToUrl = (img) => {
         const reader = new FileReader()
         reader.addEventListener(
@@ -113,7 +108,7 @@ function UploadImg({
 }
 
 UploadImg.propTypes = {
-    value: PropTypes.object,
+    value: PropTypes.string,
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     error: PropTypes.string,

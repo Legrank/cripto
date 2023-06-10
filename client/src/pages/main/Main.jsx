@@ -12,8 +12,8 @@ import {
     Section,
     Button,
 } from '../../shared/ui'
-import { UserPreviewCard } from '../../widgets/userPreviewCard'
 import { Plank } from '../../features/plank'
+import { TotalSaleUserRaiting, UserPreviewCard } from '../../widgets'
 
 const mockImgUrl = ['/img/frame73.jpg', '/img/frame79.jpg', '/img/frame80.jpg']
 const mockMainImgUrl = '/img/frame73.jpg'
@@ -72,16 +72,7 @@ export default function Main() {
                     </p>
                     <div></div>
                 </div>
-                <div className="flex flex-wrap">
-                    {Array(8)
-                        .fill(0)
-                        .map((_, i) => (
-                            <UserPreviewCard
-                                key={i}
-                                position={i % 2 ? 'right' : 'left'}
-                            />
-                        ))}
-                </div>
+                <TotalSaleUserRaiting Card={UserPreviewCard} />
             </Section>
             <div className="flex min-h-[1000px] bg-neutral8 p-20">
                 <div className="flex flex-col  justify-center w-[40%]">
@@ -115,10 +106,6 @@ export default function Main() {
                     ></div>
                 </div>
             </div>
-            <PreviewCollectionCard
-                mainImgUrl={mockMainImgUrl}
-                imgsUrl={mockImgUrl}
-            />
         </div>
     )
 }

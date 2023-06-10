@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button, FormComponent, TextField } from '../../../shared/ui'
 import { signUp } from '../../../entities/auth/model/authSlice'
@@ -42,10 +42,14 @@ const validatorConfig = {
 export function SingUp() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+    const redirect = location.state
+        ? location.state.referrer.pathname
+        : '/profile'
     const handeleSubmit = async (data) => {
         try {
             await dispatch(signUp(data)).unwrap()
-            navigate('/', { replace: true })
+            navigate(redirect, { replace: true })
         } catch (error) {
             console.log('response', error)
         }

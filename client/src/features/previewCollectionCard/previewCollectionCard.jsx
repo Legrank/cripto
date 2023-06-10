@@ -3,22 +3,32 @@ import PropTypes from 'prop-types'
 
 import style from './previewCollectionCard.module.css'
 import { ImgCard } from '../../shared/ui'
+import config from '../../shared/lib/config.json'
 
-function PreviewCollectionCard({ mainImgUrl, imgsUrl }) {
+function PreviewCollectionCard({ imgsUrls }) {
+    const [mainImgUrl, ...imgsUrl] = imgsUrls
+    const baseUrl = config.API_URL
     return (
         <div className={style.root}>
-            <ImgCard imgUrl={mainImgUrl} className={style.mainImg} />
+            <ImgCard
+                imgUrl={`${baseUrl}/${mainImgUrl}`}
+                className={style.mainImg}
+            />
 
-            {imgsUrl.map((imgUrl) => (
-                <ImgCard key={imgUrl} imgUrl={imgUrl} className={style.img} />
-            ))}
+            {!!imgsUrl.length &&
+                imgsUrl.map((imgUrl) => (
+                    <ImgCard
+                        key={imgUrl}
+                        imgUrl={`${baseUrl}/${imgUrl}`}
+                        className={style.img}
+                    />
+                ))}
         </div>
     )
 }
 
 PreviewCollectionCard.propTypes = {
-    mainImgUrl: PropTypes.string.isRequired,
-    imgsUrl: PropTypes.arrayOf(PropTypes.string).isRequired,
+    imgsUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default PreviewCollectionCard

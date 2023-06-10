@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import { userService } from '../api/user.service'
 
-export const getTopTotalsale = createAsyncThunk(
+export const fetchTopTotalsale = createAsyncThunk(
     'user/totalsale',
     async (payload, thunkAPI) => {
         try {
@@ -21,10 +21,21 @@ export const getTopTotalsale = createAsyncThunk(
             const lastUpdate = getState().user?.lastUpdate
             const time = Date.now()
             if (time < lastUpdate + 5 * 60 * 1000) {
-                console.log(time < lastUpdate + 5 * 60 * 1000)
                 return false
             }
         },
+    }
+)
+export const fetchUserById = createAsyncThunk(
+    'user/byId',
+    async (payload, thunkAPI) => {
+        const { userId, auth } = payload
+        try {
+            const { data } = await userService.getUserById(userId, auth)
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error?.response?.data?.message)
+        }
     }
 )
 
@@ -39,19 +50,27 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     extraReducers(builder) {
-        builder.addCase(getTopTotalsale.fulfilled, (state, action) => {
-            state.lastUpdate = Date.now()
-            userAdapter.upsertMany(state, action.payload)
-        })
+        builder
+            .addCase(fetchTopTotalsale.fulfilled, (state, action) => {
+                state.lastUpdate = Date.now()
+                userAdapter.upsertMany(state, action.payload)
+            })
+            .addCase(fetchUserById.fulfilled, userAdapter.upsertOne)
     },
 })
 
 const { reducer: userReducer } = userSlice
 
 export const {
-    selectAll: selectAllPosts,
-    selectById: selectPostById,
-    selectIds: selectPostIds,
+    selectAll: selectAllUsers,
+    selectById: selectUserById,
+    selectIds: selectUserIds,
 } = userAdapter.getSelectors((state) => state.user)
+
+export const getTopSeller = () => (state) => {
+    return Object.values(state.user.entities)
+        .sort((a, b) => b.totalsale >= a.totalsale)
+        .splice(0, 4)
+}
 
 export default userReducer

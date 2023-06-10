@@ -5,6 +5,9 @@ import { CloseButton, SmallArrow } from '../../../shared/ui'
 import { Link } from 'react-router-dom'
 import { Avatar } from '../../../entities'
 import { useLogout } from '../../../features/hooks'
+import { useSelector } from 'react-redux'
+import { getUserIdSelector } from '../../../entities/auth'
+import { useUser } from '../../../entities/user'
 
 function Menu() {
     const [openMenu, setOpenMenu] = useState(false)
@@ -13,36 +16,29 @@ function Menu() {
         setOpenMenu(false)
         logOut()
     }
+    const userId = useSelector(getUserIdSelector())
+    const user = useUser(userId)
     return (
         <div
             onMouseEnter={() => setOpenMenu(true)}
             onMouseLeave={() => setOpenMenu(false)}
         >
             <div className={styles.menu}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
-                </svg>
+                <Avatar classNames="w-12 h-12" avatarUrl={user?.avatar} />
                 <nav
                     className={cn(styles.list, {
                         [styles.listhover]: openMenu,
                     })}
                 >
                     <div className="flex items-center pb-6 border-b-2 border-b-neutral7">
-                        <Avatar classNames="w-20 h-20" />
+                        <Avatar
+                            classNames="w-20 h-20"
+                            avatarUrl={user?.avatar}
+                        />
                         <div>
-                            <p className="text-neutral1 text-2xl">Имя</p>
-                            <p className="text-neutral5 text-sm">Тег</p>
+                            <p className="text-neutral1 text-2xl">
+                                {user?.name}
+                            </p>
                         </div>
                     </div>
                     <ul>
@@ -59,9 +55,10 @@ function Menu() {
                         <li className="text-neutral4">
                             <Link
                                 className="flex justify-between text-neutral5 hover:text-neutral1 py-6 border-b-2 border-b-neutral7"
-                                to="#"
+                                to="/collections/my"
+                                onClick={() => setOpenMenu(false)}
                             >
-                                <p className="text-neutral4">Настройки</p>
+                                <p className="text-neutral4">Мои коллекции</p>
                                 <SmallArrow />
                             </Link>
                         </li>

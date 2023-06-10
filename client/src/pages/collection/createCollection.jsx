@@ -12,10 +12,7 @@ function CreateCollection() {
             datatransfer.append(item, data[item])
         }
         try {
-            const response = await dispatch(
-                collectionCreate(datatransfer)
-            ).unwrap()
-            console.log('response', response)
+            await dispatch(collectionCreate(datatransfer)).unwrap()
         } catch (e) {
             setError({
                 bgImg: 'При создании коллекции произошла ошибка. Попробуйте позже.',

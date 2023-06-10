@@ -64,7 +64,7 @@ function TextField({
 }
 
 TextField.propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.any,
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string,
