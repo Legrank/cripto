@@ -19,7 +19,7 @@ router.post('/create', auth, async (req, res) => {
     })
     const fileName = bgImg.name.split('.')
     const type = fileName[fileName.length - 1]
-    const pathImg = '/upload/img/' + userid + collection._id + '.' + type
+    const pathImg = 'upload/img/' + userid + collection._id + '.' + type
     const path = p.join(__dirname, '..', 'public', pathImg)
     collection.bgImg = pathImg
     await collection.save()

@@ -23,7 +23,7 @@ router.post('/create', auth, async (req, res) => {
     })
     const fileName = imgUrl.name.split('.')
     const type = fileName[fileName.length - 1]
-    const pathImg = 'nft/' + userid + nft._id + '.' + type
+    const pathImg = 'upload/nft/' + userid + nft._id + '.' + type
     const path = p.join(__dirname, '..', 'public', pathImg)
     nft.imgUrl = pathImg
     await nft.save()
