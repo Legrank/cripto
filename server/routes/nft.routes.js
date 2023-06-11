@@ -1,4 +1,5 @@
 const express = require('express')
+const p = require('path')
 const router = express.Router({ mergeParams: true })
 const auth = require('../middleware/auth')
 const Nft = require('../models/Nft')
@@ -23,7 +24,7 @@ router.post('/create', auth, async (req, res) => {
     const fileName = imgUrl.name.split('.')
     const type = fileName[fileName.length - 1]
     const pathImg = 'nft/' + userid + nft._id + '.' + type
-    const path = __dirname + '/../public/' + pathImg
+    const path = p.join(__dirname, '..', 'public', pathImg)
     nft.imgUrl = pathImg
     await nft.save()
     const collection = await Collection.findById(collectionNft)
@@ -60,7 +61,7 @@ router.post('/update', auth, async (req, res) => {
       const fileName = imgUrl.name.split('.')
       const type = fileName[fileName.length - 1]
       const pathImg = 'nft/' + userid + nft._id + '.' + type
-      const path = __dirname + '/../public/' + pathImg
+      const path = p.join(__dirname, '..', 'public', pathImg)
       nft.imgUrl = pathImg
       await nft.save()
       imgUrl.mv(path)

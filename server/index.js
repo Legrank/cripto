@@ -17,10 +17,12 @@ app.use(cors())
 app.use(fileUpload())
 app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/api', routes)
-const indexPath = path.join(__dirname, 'public', 'index.html')
-app.get('*', (req, res) => {
-  res.sendFile(indexPath)
-})
+if (process.env.NODE_ENV === 'production') {
+  const indexPath = path.join(__dirname, 'public', 'index.html')
+  app.get('*', (req, res) => {
+    res.sendFile(indexPath)
+  })
+}
 async function start() {
   try {
     mongoose.connection.once('open', () => {

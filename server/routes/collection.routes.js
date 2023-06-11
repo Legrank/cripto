@@ -1,4 +1,5 @@
 const express = require('express')
+const p = require('path')
 const router = express.Router({ mergeParams: true })
 const auth = require('../middleware/auth')
 const Collection = require('../models/Collection')
@@ -18,8 +19,8 @@ router.post('/create', auth, async (req, res) => {
     })
     const fileName = bgImg.name.split('.')
     const type = fileName[fileName.length - 1]
-    const pathImg = 'img/' + userid + collection._id + '.' + type
-    const path = __dirname + '/../public/' + pathImg
+    const pathImg = '/upload/img/' + userid + collection._id + '.' + type
+    const path = p.join(__dirname, '..', 'public', pathImg)
     collection.bgImg = pathImg
     await collection.save()
     bgImg.mv(path)
